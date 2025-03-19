@@ -7,10 +7,20 @@ import lib
 
 script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance", "bash_scripts"))
 
+def aws_configure(aws_access_key:str, aws_secret_key:str):
+    print("aws_configure")
+    if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key}'):
+        return False
+    
+def aws_setup_route53(subdomain:str):
+    print("aws_setup_route53")
+    if not script_runner.run(f'aws_setup_route53.sh {subdomain}'):
+        return False
+    
 def docker_run(subdomain:str, port:str, tag:str):
     print("docker_run")
     os.makedirs(f'/home/ubuntu/{subdomain}', exist_ok=True)
-    
+
     aws_account="851725307474"
     aws_region="ap-northeast-2"
     docker_repo_path=f'{aws_account}.dkr.ecr.{aws_region}.amazonaws.com'
@@ -25,8 +35,17 @@ def aws_setup_nginx(subdomain:str, port:str):
     if not script_runner.run(f'aws_setup_nginx.sh {subdomain}'):
         return False
 
-def run(subdomain:str, tag: str):
+def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
+
+    if not aws_configure(aws_access_key, aws_secret_key):
+        return
+    
+    if not aws_setup_route53(subdomain):
+        return
+
     port = 9050
+    
+    
     if not docker_run(subdomain, port, tag):
         return
 
@@ -38,9 +57,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="My CLI tool")
     parser.add_argument("-s", "--subdomain", type=str, help="subdomain", required=True)
     parser.add_argument("-t", "--tag", type=str, help="tag", required=True)
+    parser.add_argument("-ak", "--access_key", type=str, help="access_key", required=True)
+    parser.add_argument("-sk", "--secert_key", type=str, help="secert_key", required=True)
     args = parser.parse_args()
 
-    run(args.subdomain, args.tag)
+    run(args.subdomain, args.tag, args.access_key, args.secert_key)
 
 
     
