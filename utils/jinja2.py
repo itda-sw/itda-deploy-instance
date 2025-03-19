@@ -1,9 +1,10 @@
 import os
 from jinja2 import Environment, FileSystemLoader
 
+jinja2_path = os.path.join("/home/ubuntu/itda_deploy_instnace", "jinja2")
+env = Environment(loader=FileSystemLoader(jinja2_path))
+
 def generate_docker_compose(subdomain:str, port:str, docker_image:str):
-  jinja2_path = os.path.join(os.getenv("DEPLOY_PATH"), "jinja2")
-  env = Environment(loader=FileSystemLoader(jinja2_path))
   template = env.get_template("docker_compose.jinja2")
   data = {
     "subdomain": subdomain,
@@ -12,14 +13,12 @@ def generate_docker_compose(subdomain:str, port:str, docker_image:str):
     }
   output = template.render(data)
 
-  file_path = os.path.join(os.getcwd(), "docker", f'docker-compose-{subdomain}.yml')
+  file_path = os.path.join("/home/ubuntu", subdomain, f'docker-compose-{subdomain}.yml')
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(output)
   return
 
 def generate_nginx(subdomain:str, port:str):
-  jinja2_path = os.path.join(os.getenv("DEPLOY_PATH"), "jinja2")
-  env = Environment(loader=FileSystemLoader(jinja2_path))
   template = env.get_template("nginx.jinja2")
   data = {
     "subdomain": subdomain,
@@ -27,6 +26,15 @@ def generate_nginx(subdomain:str, port:str):
     }
   output = template.render(data)
 
-  file_path = os.path.join(os.getcwd(), f'{subdomain}.soc-canvas.com')
+  file_path = os.path.join("/home/ubuntu", subdomain, f'{subdomain}.soc-canvas.com')
+  with open(file_path, 'w', encoding='utf-8') as f:
+    f.write(output)
+
+def generate_nginx_conf():
+  template = env.get_template("nginx_conf.jinja2")
+  data = {}
+  output = template.render(data)
+
+  file_path = os.path.join("/etc/nginx/conf.d", f'nginx_conf')
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(output)

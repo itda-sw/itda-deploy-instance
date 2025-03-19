@@ -1,13 +1,9 @@
 #!/bin/bash
 set -e
 
-instance=${1}
-subdomain=${2}
+subdomain=${1}
 
-instance_ip4=$(aws ec2 describe-instances --filters \
-		"Name=tag:Name,Values=${instance}" \
-		--query 'Reservations[].Instances[].PublicIpAddress' \
-		--output text)
+instance_ip4=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
 ## aws_setup_router53
 change_batch=$(cat <<EOF

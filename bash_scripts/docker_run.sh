@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-instance=${1}
-subdomain=${2}
-docker_image=${3}
-
-key_path=${PWD}/../..
-
 subdomain=${1}
 docker_image=${2}
 
