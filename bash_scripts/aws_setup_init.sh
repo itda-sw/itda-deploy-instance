@@ -2,10 +2,10 @@
 set -e
 
 sudo apt update && sudo apt upgrade -y
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/home/ubuntu/awscliv2.zip"
 sudo apt install unzip
-unzip awscliv2.zip
-sudo ./aws/install
+unzip -o /home/ubuntu/awscliv2.zip
+sudo /home/ubuntu/aws/install
 aws --version
 
 sudo apt install -y docker.io
