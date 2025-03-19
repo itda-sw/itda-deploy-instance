@@ -39,6 +39,11 @@ def docker_run(subdomain:str, port:str, tag:str) -> bool:
         return False
     return True
 
+def aws_exist_nginx_conf(subdomain:str):
+    port =  script_runner.run(f'aws_setup_nginx.sh {subdomain}', True):
+    print(port)
+    return port
+    
 def aws_setup_nginx(subdomain:str, port:str) -> bool:
     utils.generate_nginx(subdomain, port)
     if not script_runner.run(f'aws_setup_nginx.sh {subdomain}'):
@@ -46,23 +51,26 @@ def aws_setup_nginx(subdomain:str, port:str) -> bool:
     return True
 
 def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
+    port = aws_exist_nginx_conf(subdomain)
+    print(port)
     
-    if not aws_setup_init(subdomain):
-        return
     
-    if not aws_configure(aws_access_key, aws_secret_key):
-        return
+    # if not aws_setup_init(subdomain):
+    #     return
     
-    if not aws_setup_route53(subdomain):
-        return
+    # if not aws_configure(aws_access_key, aws_secret_key):
+    #     return
+    
+    # if not aws_setup_route53(subdomain):
+    #     return
 
-    port = utils.get_port()
+    # port = utils.get_port()
 
-    if not docker_run(subdomain, port, tag):
-        return
+    # if not docker_run(subdomain, port, tag):
+    #     return
 
-    if not aws_setup_nginx(subdomain, port):
-        return
+    # if not aws_setup_nginx(subdomain, port):
+    #     return
 
 
 if __name__ == "__main__":
