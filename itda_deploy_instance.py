@@ -13,7 +13,7 @@ def aws_setup_route53(subdomain:str):
         return False
 
 def docker_run(subdomain:str, port:str, tag:str):
-    print("docker_run_aws")
+    print("docker_run")
     aws_account="851725307474"
     aws_region="ap-northeast-2"
     docker_repo_path=f'{aws_account}.dkr.ecr.{aws_region}.amazonaws.com'
@@ -30,13 +30,13 @@ def aws_setup_nginx(subdomain:str, port:str):
 
 def run(subdomain:str, tag: str):
     port = 9050
-    if aws_setup_route53(subdomain):
+    if not aws_setup_route53(subdomain):
         return
 
-    if docker_run(subdomain, port, tag):
+    if not docker_run(subdomain, port, tag):
         return
 
-    if aws_setup_nginx(subdomain, port):
+    if not aws_setup_nginx(subdomain, port):
         return
 
 
