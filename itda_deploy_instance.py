@@ -10,7 +10,6 @@ script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance
 def aws_configure(aws_access_key:str, aws_secret_key:str):
     print("aws_configure")
     if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key}'):
-        print("00")
         return False
     
 def aws_setup_route53(subdomain:str):
