@@ -5,7 +5,7 @@ import argparse
 import utils
 import lib
 
-script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda_deploy_instnace", "bash_scripts"))
+script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda_deploy_instance", "bash_scripts"))
 
 def aws_setup_route53(subdomain:str):
     print("aws_setup_route53")
