@@ -48,7 +48,7 @@ def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
     if not aws_setup_route53(subdomain):
         return
 
-    port = 9050
+    port = utils.get_port()
 
     if not docker_run(subdomain, port, tag):
         return
