@@ -1,13 +1,8 @@
-import sys
 import os
-from jinja2 import Environment, FileSystemLoader
-import json
 
-sys.path.append(os.getenv("ENV_PATH"))
+import lib
 
-from lib import ScriptRunner
-
-script_runner = ScriptRunner(os.path.join(os.getenv("DEV_PATH"), "bash_scripts"))
+script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance", "bash_scripts"))
 
 def get_port() -> str:
       start_port = 9050
