@@ -1,10 +1,9 @@
 import os
 from jinja2 import Environment, FileSystemLoader
 
-jinja2_path = os.path.join("/home/ubuntu/itda_deploy_instnace", "jinja2")
-env = Environment(loader=FileSystemLoader(jinja2_path))
-
 def generate_docker_compose(subdomain:str, port:str, docker_image:str):
+  jinja2_path = os.path.join("/home/ubuntu/itda-deploy-instance", "jinja2")
+  env = Environment(loader=FileSystemLoader(jinja2_path))
   template = env.get_template("docker_compose.jinja2")
   data = {
     "subdomain": subdomain,
@@ -19,6 +18,8 @@ def generate_docker_compose(subdomain:str, port:str, docker_image:str):
   return
 
 def generate_nginx(subdomain:str, port:str):
+  jinja2_path = os.path.join("/home/ubuntu/itda-deploy-instance", "jinja2")
+  env = Environment(loader=FileSystemLoader(jinja2_path))
   template = env.get_template("nginx.jinja2")
   data = {
     "subdomain": subdomain,
@@ -31,6 +32,8 @@ def generate_nginx(subdomain:str, port:str):
     f.write(output)
 
 def generate_nginx_conf():
+  jinja2_path = os.path.join("/home/ubuntu/itda-deploy-instance", "jinja2")
+  env = Environment(loader=FileSystemLoader(jinja2_path))
   template = env.get_template("nginx_conf.jinja2")
   data = {}
   output = template.render(data)
