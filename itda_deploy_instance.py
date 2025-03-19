@@ -40,7 +40,7 @@ def docker_run(subdomain:str, port:str, tag:str) -> bool:
     return True
 
 def aws_exist_nginx_conf(subdomain:str):
-    port =  script_runner.run(f'aws_setup_nginx.sh {subdomain}', True)
+    port =  script_runner.run(f'aws_exist_nginx_conf.sh {subdomain}', True)
     print(port)
     return port
     
