@@ -15,6 +15,6 @@ docker --version
 
 sudo apt install -y docker-compose
 
-sudo apt-get install nginx
+sudo apt-get install -y nginx
 
-sudo apt-get install certbot python3-certbot-nginx
+sudo apt-get install -y certbot python3-certbot-nginx

@@ -38,6 +38,6 @@ def generate_nginx_conf():
   data = {}
   output = template.render(data)
 
-  file_path = os.path.join("/etc/nginx/conf.d", f'nginx_conf')
+  file_path = os.path.join("/home/ubuntu", f'nginx_conf')
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(output)
