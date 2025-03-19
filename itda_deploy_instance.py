@@ -17,6 +17,7 @@ def aws_setup_route53(subdomain:str):
     print("aws_setup_route53")
     if not script_runner.run(f'aws_setup_route53.sh {subdomain}'):
         return False
+    return True
     
 def docker_run(subdomain:str, port:str, tag:str) -> bool:
     print("docker_run")
