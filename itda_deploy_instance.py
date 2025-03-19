@@ -7,6 +7,11 @@ import lib
 
 script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance", "bash_scripts"))
 
+def aws_setup_init(subdomain:str)->bool:
+    if not script_runner.run(f'aws_setup_init.sh {subdomain}'):
+        return False
+    return True
+
 def aws_configure(aws_access_key:str, aws_secret_key:str) -> bool:
     print("aws_configure")
     aws_region="ap-northeast-2"
@@ -41,7 +46,10 @@ def aws_setup_nginx(subdomain:str, port:str) -> bool:
     return True
 
 def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
-
+    
+    if not aws_setup_init(subdomain):
+        return
+    
     if not aws_configure(aws_access_key, aws_secret_key):
         return
     
