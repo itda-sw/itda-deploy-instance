@@ -2,11 +2,9 @@ import sys
 import os
 import argparse
 
-sys.path.append(os.getenv("ENV_PATH"))
-from lib import ScriptRunner
-import utils
+import lib
 
-script_runner = ScriptRunner(os.path.join("/home", "itda_deploy_instnace", "bash_scripts"))
+script_runner = lib.ScriptRunner(os.path.join("/home", "itda_deploy_instnace", "bash_scripts"))
 
 def aws_setup_init():
     print("aws_setup_init")
