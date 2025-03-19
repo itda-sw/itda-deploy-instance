@@ -11,8 +11,7 @@ def run():
     if not script_runner.run(f'aws_setup_init.sh'):
         return
 
-    if not utils.generate_nginx_conf():
-        return
+    utils.generate_nginx_conf()
     
     if not script_runner.run(f'aws_setup_nginx_conf.sh'):
         return
