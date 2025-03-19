@@ -9,5 +9,5 @@ aws ecr get-login-password --region ${aws_region} | sudo docker login --username
 
 sudo docker pull ${docker_image}
 
-sudo docker-compose -f ${subdomain}/docker-compose-${subdomain}.yml down 
-sudo docker-compose -f ${subdomain}/docker-compose-${subdomain}.yml up -d
+sudo docker-compose -f /home/ubuntu/${subdomain}/docker-compose-${subdomain}.yml down 
+sudo docker-compose -f /home/ubuntu/${subdomain}/docker-compose-${subdomain}.yml up -d
