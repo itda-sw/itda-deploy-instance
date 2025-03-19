@@ -9,7 +9,8 @@ script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance
 
 def aws_configure(aws_access_key:str, aws_secret_key:str) -> bool:
     print("aws_configure")
-    if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key}'):
+    aws_region="ap-northeast-2"
+    if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key} {aws_region}'):
         return False
     return True
     
@@ -29,7 +30,7 @@ def docker_run(subdomain:str, port:str, tag:str) -> bool:
     docker_image=f'{docker_repo_path}/{subdomain}:{tag}'
 
     utils.generate_docker_compose(subdomain, port, docker_image)
-    if not script_runner.run(f'docker_run.sh {subdomain} {docker_image}'):
+    if not script_runner.run(f'docker_run.sh {subdomain} {docker_image} {aws_region}'):
         return False
     return True
 
