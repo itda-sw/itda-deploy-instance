@@ -46,7 +46,7 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--tag", type=str, help="tag", required=True)
     args = parser.parse_args()
 
-    run(args.assignment, args.tag, args.port)
+    run(args.subdomain, args.tag)
 
 
     
