@@ -7,11 +7,6 @@ import lib
 
 script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance", "bash_scripts"))
 
-def aws_setup_route53(subdomain:str):
-    print("aws_setup_route53")
-    if not script_runner.run(f'aws_setup_route53.sh {subdomain}'):
-        return False
-
 def docker_run(subdomain:str, port:str, tag:str):
     print("docker_run")
     aws_account="851725307474"
@@ -30,9 +25,6 @@ def aws_setup_nginx(subdomain:str, port:str):
 
 def run(subdomain:str, tag: str):
     port = 9050
-    if not aws_setup_route53(subdomain):
-        return
-
     if not docker_run(subdomain, port, tag):
         return
 
