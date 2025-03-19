@@ -9,6 +9,8 @@ script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance
 
 def docker_run(subdomain:str, port:str, tag:str):
     print("docker_run")
+    os.makedirs(f'/home/ubuntu/{subdomain}', exist_ok=True)
+    
     aws_account="851725307474"
     aws_region="ap-northeast-2"
     docker_repo_path=f'{aws_account}.dkr.ecr.{aws_region}.amazonaws.com'
