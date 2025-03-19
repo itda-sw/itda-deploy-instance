@@ -14,7 +14,7 @@ class ScriptRunner:
 				return res.stdout.strip()
 			else:
 				print(f"{cmd} command fail", res.stderr)
-				return res.returncode
+				return False
 		else:
 			res = subprocess.run(cmd, capture_output=False, text=True, shell=True)
 			if res.returncode == 0:
