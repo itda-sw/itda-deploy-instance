@@ -10,6 +10,7 @@ script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance
 def aws_configure(aws_access_key:str, aws_secret_key:str):
     print("aws_configure")
     if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key}'):
+        print("00")
         return False
     
 def aws_setup_route53(subdomain:str):
@@ -38,14 +39,15 @@ def aws_setup_nginx(subdomain:str, port:str):
 def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
 
     if not aws_configure(aws_access_key, aws_secret_key):
+        print("11")
         return
+    print("22")
     
     if not aws_setup_route53(subdomain):
         return
 
     port = 9050
-    
-    
+
     if not docker_run(subdomain, port, tag):
         return
 
