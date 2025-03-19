@@ -7,17 +7,18 @@ import lib
 
 script_runner = lib.ScriptRunner(os.path.join("/home/ubuntu/itda-deploy-instance", "bash_scripts"))
 
-def aws_configure(aws_access_key:str, aws_secret_key:str):
+def aws_configure(aws_access_key:str, aws_secret_key:str) -> bool:
     print("aws_configure")
     if not script_runner.run(f'aws_configure.sh {aws_access_key} {aws_secret_key}'):
         return False
+    return True
     
 def aws_setup_route53(subdomain:str):
     print("aws_setup_route53")
     if not script_runner.run(f'aws_setup_route53.sh {subdomain}'):
         return False
     
-def docker_run(subdomain:str, port:str, tag:str):
+def docker_run(subdomain:str, port:str, tag:str) -> bool:
     print("docker_run")
     os.makedirs(f'/home/ubuntu/{subdomain}', exist_ok=True)
 
@@ -29,18 +30,18 @@ def docker_run(subdomain:str, port:str, tag:str):
     utils.generate_docker_compose(subdomain, port, docker_image)
     if not script_runner.run(f'docker_run.sh {subdomain} {docker_image}'):
         return False
+    return True
 
-def aws_setup_nginx(subdomain:str, port:str):
+def aws_setup_nginx(subdomain:str, port:str) -> bool:
     utils.generate_nginx(subdomain, port)
     if not script_runner.run(f'aws_setup_nginx.sh {subdomain}'):
         return False
+    return True
 
 def run(subdomain:str, tag: str, aws_access_key:str, aws_secret_key:str):
 
     if not aws_configure(aws_access_key, aws_secret_key):
-        print("11")
         return
-    print("22")
     
     if not aws_setup_route53(subdomain):
         return
