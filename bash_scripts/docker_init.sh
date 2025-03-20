@@ -3,6 +3,7 @@ set -e
 
 subdomain=${1}
 
+mkdir -p /home/ubuntu/${subdomain}
 mkdir -p /home/ubuntu/${subdomain}/ws
 mkdir -p /home/ubuntu/${subdomain}/ws/DBs
 mkdir -p /home/ubuntu/${subdomain}/ws/configs

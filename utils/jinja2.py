@@ -27,6 +27,6 @@ def generate_nginx(subdomain:str, port:str):
     }
   output = template.render(data)
 
-  file_path = os.path.join("/home/ubuntu", subdomain, f'{subdomain}.soc-canvas.com')
+  file_path = os.path.join("/home/ubuntu", f'{subdomain}.soc-canvas.com')
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(output)

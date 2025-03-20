@@ -8,6 +8,6 @@ def get_port() -> str:
       start_port = 9050
 
       for port in range(start_port, start_port + 1000 - 1):
-        if script_runner.run(f"run_using_port.sh {port}"):
+        if script_runner.run(f"using_port.sh {port}"):
             continue
         return port 

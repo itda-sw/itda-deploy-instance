@@ -9,8 +9,8 @@ current_folder = os.path.dirname(os.path.abspath(__file__))
 script_runner = lib.ScriptRunner(os.path.join(current_folder, "bash_scripts"))
 
 
-def aws_exist_nginx_conf(subdomain:str):
-    port = script_runner.run(f'aws_exist_nginx_conf.sh {subdomain}', True)
+def nginx_port(subdomain:str):
+    port = script_runner.run(f'nginx_port.sh {subdomain}', True)
     return port
 
 def docker_init(subdomain:str):
@@ -20,7 +20,6 @@ def docker_init(subdomain:str):
 
 def docker_run(subdomain:str, port:str, tag:str) -> bool:
     print("docker_run")
-    os.makedirs(f'/home/ubuntu/{subdomain}', exist_ok=True)
     docker_image = script_runner.run(f'get_docker_image.sh {subdomain} {tag}', True)
 
     utils.generate_docker_compose(subdomain, port, docker_image)
@@ -30,7 +29,7 @@ def docker_run(subdomain:str, port:str, tag:str) -> bool:
 
 def run(subdomain:str, tag: str): 
     
-    port = aws_exist_nginx_conf(subdomain)
+    port = nginx_port(subdomain)
     if not port:
         return 
 
