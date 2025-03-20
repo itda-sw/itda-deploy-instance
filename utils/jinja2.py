@@ -30,14 +30,3 @@ def generate_nginx(subdomain:str, port:str):
   file_path = os.path.join("/home/ubuntu", subdomain, f'{subdomain}.soc-canvas.com')
   with open(file_path, 'w', encoding='utf-8') as f:
     f.write(output)
-
-def generate_nginx_conf():
-  jinja2_path = os.path.join("/home/ubuntu/itda-deploy-instance", "jinja2")
-  env = Environment(loader=FileSystemLoader(jinja2_path))
-  template = env.get_template("nginx_conf.jinja2")
-  data = {}
-  output = template.render(data)
-
-  file_path = os.path.join("/home/ubuntu", f'nginx_conf.conf')
-  with open(file_path, 'w', encoding='utf-8') as f:
-    f.write(output)
