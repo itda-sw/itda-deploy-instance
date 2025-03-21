@@ -8,11 +8,6 @@ import lib
 current_folder = os.path.dirname(os.path.abspath(__file__))
 script_runner = lib.ScriptRunner(os.path.join(current_folder, "bash_scripts"))
 
-
-def nginx_port(subdomain:str):
-    port = script_runner.run(f'nginx_port.sh {subdomain}', True)
-    return port
-
 def docker_init(subdomain:str):
     if not script_runner.run(f'docker_init.sh {subdomain}'):
         return False
@@ -29,7 +24,7 @@ def docker_run(subdomain:str, port:str, tag:str) -> bool:
 
 def run(subdomain:str, tag: str): 
     
-    port = nginx_port(subdomain)
+    port = utils.get_nginx_port(subdomain)
     if not port:
         return 
 
