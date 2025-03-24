@@ -13,6 +13,10 @@ def aws_setup_nginx(subdomain:str, port:str) -> bool:
     if not script_runner.run(f'setup_nginx.sh {subdomain}'):
         return False
     return True
+def aws_setup_letsencrypt(subdomain:str) -> bool:
+     if not script_runner.run(f'setup_letsencrypt.sh {subdomain}'):
+        return False
+    return True
 
 def run(subdomain:str): 
     port = utils.get_nginx_port(subdomain)
@@ -20,6 +24,9 @@ def run(subdomain:str):
         port = utils.get_port()
 
     if not aws_setup_nginx(subdomain, port):
+        return
+    
+    if not aws_setup_letsencrypt(subdomain):
         return
 
 if __name__ == "__main__":
