@@ -15,7 +15,7 @@ def aws_setup_nginx(subdomain:str, port:str) -> bool:
     return True
     
 def aws_setup_letsencrypt(subdomain:str) -> bool:
-     if not script_runner.run(f'setup_letsencrypt.sh {subdomain}'):
+    if not script_runner.run(f'setup_letsencrypt.sh {subdomain}'):
         return False
     return True
 
