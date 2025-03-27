@@ -8,14 +8,14 @@ import lib
 current_folder = os.path.dirname(os.path.abspath(__file__))
 script_runner = lib.ScriptRunner(os.path.join(current_folder, "bash_scripts"))
 
-def docker_delete(subdomain:str, tag:str) -> bool:
+def docker_delete(subdomain:str) -> bool:
     print("docker_delete")
     if not script_runner.run(f'docker_delete.sh {subdomain}'):
         return False
     return True
 
-def run(subdomain:str, tag: str):    
-    if not docker_delete(subdomain, tag):
+def run(subdomain:str):    
+    if not docker_delete(subdomain):
         return
 
 if __name__ == "__main__":
