@@ -9,7 +9,7 @@ current_folder = os.path.dirname(os.path.abspath(__file__))
 script_runner = lib.ScriptRunner(os.path.join(current_folder, "bash_scripts"))
 
 def run(subdomain:str): 
-    script_runner.run(f'copy_meta.sh {subdomain}', True)
+    script_runner.run(f'docker_meta.sh {subdomain}', True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="My CLI tool")
