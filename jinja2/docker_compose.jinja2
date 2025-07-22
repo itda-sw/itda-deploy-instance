@@ -2,12 +2,12 @@ services:
   nginx-{{subdomain}}:
     container_name: {{subdomain}}
     image: {{docker_image}}
+    restart: always
     volumes:
     - /home/ubuntu/{{subdomain}}/ws/:/ws
     - /var/log/container:/var/log/nginx
     ports:
     - "{{port}}:8080"
     environment:
-    - ITDA_WS_HOME=/ws/canvas-input
-    - ITDA_WS_USER=/ws
+    - ITDA_WS_HOME=/ws
     - ITDA_HW_DOC_DIR=/ws/itda-hwdoc
